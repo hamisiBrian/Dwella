@@ -1,0 +1,71 @@
+{% extends 'starter-page.html' %}
+
+{% block body %}
+<!-- Page Title -->
+<div class="container my-4" style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; border: 1px solid #28a745;">
+    <h2 class="text-center mb-4" style="color: #28a745; font-weight: bold;">Filter Properties</h2>
+
+    <!-- Filter Form -->
+    <form method="get" class="row g-3">
+        {% csrf_token %}
+
+        <!-- Location Filter -->
+        <div class="col-md-4">
+            <label for="id_location" class="form-label" style="color: #28a745; font-weight: bold;">Location</label>
+            <input type="text" name="location" class="form-control" value="{{ form.location.value }}" placeholder="Enter location">
+        </div>
+
+        <!-- Minimum Price Filter -->
+        <div class="col-md-4">
+            <label for="id_min_price" class="form-label" style="color: #28a745; font-weight: bold;">Min Price</label>
+            <input type="number" name="min_price" class="form-control" value="{{ form.min_price.value }}" placeholder="e.g., 500">
+        </div>
+
+        <!-- Maximum Price Filter -->
+        <div class="col-md-4">
+            <label for="id_max_price" class="form-label" style="color: #28a745; font-weight: bold;">Max Price</label>
+            <input type="number" name="max_price" class="form-control" value="{{ form.max_price.value }}" placeholder="e.g., 2000">
+        </div>
+
+        <!-- Property Type Filter -->
+        <div class="col-md-4">
+            <label for="id_property_type" class="form-label" style="color: #28a745; font-weight: bold;">Property Type</label>
+            <select name="property_type" class="form-control">
+                <option value="">--Select Type--</option>
+                {% for type in form.property_type.field.choices %}
+                    <option value="{{ type.0 }}" {% if form.property_type.value == type.0 %} selected {% endif %}>{{ type.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Filter Button -->
+        <div class="col-12">
+            <button type="submit" class="btn w-100" style="background-color: #28a745; color: white; font-weight: bold;">Apply Filters</button>
+        </div>
+    </form>
+
+    <!-- Filtered Properties Section -->
+    <h3 class="my-4" style="color: #28a745;">Filtered Properties</h3>
+    {% if properties %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for property in properties %}
+                <div class="col">
+                    <div class="card shadow-sm border-0">
+                        <img src="{{ property.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+                        <div class="card-body" style="background-color: #e9f9ec;">
+                            <h5 class="card-title" style="color: #28a745; font-weight: bold;">{{ property.title }}</h5>
+                            <p class="card-text"><strong>Price:</strong> ${{ property.price }}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ property.location }}</p>
+                            <p class="card-text"><strong>Type:</strong> {{ property.property_type }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center" style="color: #856404; background-color: #fff3cd; border-color: #ffeeba;">
+            No properties found matching your filters.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

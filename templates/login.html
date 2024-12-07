@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <style>
+        body {
+            background-color: #f4f9f9;
+        }
+        .card {
+            border-radius: 10px;
+        }
+        .btn-custom {
+            background-color: #28a745;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #218838;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .form-label {
+            font-size: 1.1rem;
+            color: #495057;
+        }
+        .text-custom {
+            color: #28a745;
+        }
+        .forgot-password {
+            font-size: 0.9rem;
+            color: #28a745;
+        }
+        .register-link {
+            font-size: 0.9rem;
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Section: Design Block -->
+<section>
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight text-center">
+                        Welcome Back <br />
+                        <span class="text-custom">We're glad to see you!</span>
+                    </h1>
+                </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card shadow-lg">
+                        <div class="card-body py-5 px-md-5">
+                            <p class="display-6 text-center fw-bold">Log In</p>
+
+                            <form method="POST" action="{% url 'index' %}">
+                                {% csrf_token %}
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input type="email" name="email" id="form3Example3" class="form-control" required/>
+                                    <label class="form-label" for="form3Example3">Email Address</label>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input type="password" name="password" id="form3Example4" class="form-control" required/>
+                                    <label class="form-label" for="form3Example4">Password</label>
+                                </div>
+
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-custom btn-block mb-4">
+                                    Log In
+                                </button>
+
+                                <div class="text-center">
+                                    <a href="#" class="forgot-password">Forgot Password?</a> </br>
+                                    <a href="{% url 'register' %}" class="register-link">Don't have an account? Sign up</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->
+
+</body>
+</html>

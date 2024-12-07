@@ -1,0 +1,57 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Properties</h2>
+    <div class="row">
+        {% for property in properties %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow">
+                <!-- Display property image -->
+                <img
+                    src="{{ property.image.url }}"
+                    class="card-img-top property-image"
+                    alt="{{ property.title }}"
+                    style="cursor: pointer;"
+                    data-bs-toggle="modal"
+                    data-bs-target="#propertyModal{{ property.id }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.title }}</h5>
+                    <p class="card-text">Price: KES {{ property.price }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Enlarged Image and Payment -->
+        <div class="modal fade" id="propertyModal{{ property.id }}" tabindex="-1" aria-labelledby="propertyModalLabel{{ property.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="propertyModalLabel{{ property.id }}">{{ property.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Enlarged Image -->
+                        <img
+                            src="{{ property.image.url }}"
+                            class="img-fluid mb-4"
+                            alt="Enlarged {{ property.title }}">
+
+                        <!-- Property Details -->
+                        <h6>Price: KES {{ property.price }}</h6>
+                        <p>{{ property.description }}</p>
+
+                        <!-- DELETE and PAY Buttons -->
+                        <div class="mt-4">
+                            <a href="/imagedelete/{{ property.id }}" class="btn btn-outline-danger">DELETE</a>
+                            <a href="{% url 'pay' %}" class="btn btn-outline-success">PAY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

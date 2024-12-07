@@ -1,0 +1,32 @@
+{% extends "starter-page.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f9f9f9;">
+    <div class="card p-4 shadow" style="width: 100%; max-width: 450px; border-top: 5px solid #28a745; border-radius: 10px;">
+        <h2 class="text-center mb-3" style="color: #28a745;">Upload and Pay</h2>
+        <p class="text-center text-muted mb-4">Upload your image and proceed to payment if required.</p>
+        
+        <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+            {% csrf_token %}
+
+            <!-- Loop through form fields -->
+            {% for field in form %}
+            <div class="form-group mb-3">
+                <label for="{{ field.id_for_label }}" style="color: #28a745;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn w-100 mb-3" style="background-color: #28a745; color: white; font-weight: bold;">
+                Submit
+            </button>
+        </form>
+
+        <p class="text-center mt-3 text-muted" style="font-size: 14px;">Supported formats: JPG, PNG, GIF</p>
+    </div>
+</div>
+{% endblock %}

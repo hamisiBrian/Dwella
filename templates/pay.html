@@ -1,0 +1,50 @@
+{% extends 'starter-page.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+  <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px; border-radius: 10px;">
+    <h2 class="text-center mb-4" style="color: #4CAF50;">Make a Payment</h2>
+    <form method="post" action="{% url 'stk' %}">
+      {% csrf_token %}
+      <div class="form-group mb-3">
+        <label for="phone" class="form-label" style="font-weight: bold;">Phone Number</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-phone"></i>
+          </span>
+          <input
+            type="number"
+            id="phone"
+            name="phone"
+            class="form-control"
+            value="254"
+            placeholder="Enter your phone number"
+            required>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="amount" class="form-label" style="font-weight: bold;">Amount</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="fas fa-dollar-sign"></i>
+          </span>
+          <input
+            type="text"
+            id="amount"
+            name="amount"
+            class="form-control"
+            placeholder="Enter payment amount"
+            required>
+        </div>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-block w-100" style="font-weight: bold; border-radius: 5px;">
+          Submit Payment
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
