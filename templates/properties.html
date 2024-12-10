@@ -3,49 +3,61 @@
 
 {% block body %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Properties</h2>
+    <h2 class="text-center mb-4" style="font-weight: bold; color: #28a745;">Properties</h2>
     <div class="row">
-        {% for property in properties %}
+        {% for image in images %}
         <div class="col-md-4 mb-4">
-            <div class="card shadow">
+            <div class="card shadow border-0 rounded">
                 <!-- Display property image -->
                 <img
-                    src="{{ property.image.url }}"
+                    src="{{ image.image.url }}"
                     class="card-img-top property-image"
-                    alt="{{ property.title }}"
-                    style="cursor: pointer;"
+                    alt="{{ image.title }}"
+                    style="cursor: pointer; border-radius: 10px;"
                     data-bs-toggle="modal"
-                    data-bs-target="#propertyModal{{ property.id }}">
+                    data-bs-target="#propertyModal{{ image.id }}">
                 <div class="card-body">
-                    <h5 class="card-title">{{ property.title }}</h5>
-                    <p class="card-text">Price: KES {{ property.price }}</p>
+                    <h5 class="card-title text-center" style="font-size: 1.2rem; font-weight: bold;">{{ image.title }}</h5>
+                    <p class="card-text text-center" style="font-size: 1.1rem; color: #28a745;">KES {{ image.price }}</p>
                 </div>
             </div>
         </div>
 
         <!-- Modal for Enlarged Image and Payment -->
-        <div class="modal fade" id="propertyModal{{ property.id }}" tabindex="-1" aria-labelledby="propertyModalLabel{{ property.id }}" aria-hidden="true">
+        <div class="modal fade" id="propertyModal{{ image.id }}" tabindex="-1" aria-labelledby="propertyModalLabel{{ image.id }}" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="propertyModalLabel{{ property.id }}">{{ property.title }}</h5>
+                        <h5 class="modal-title" id="propertyModalLabel{{ image.id }}" style="font-weight: bold;">{{ image.title }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body d-flex align-items-center">
                         <!-- Enlarged Image -->
-                        <img
-                            src="{{ property.image.url }}"
-                            class="img-fluid mb-4"
-                            alt="Enlarged {{ property.title }}">
+                        <div class="me-4" style="max-width: 55%; flex-shrink: 0;">
+                            <img
+                                src="{{ image.image.url }}"
+                                class="img-fluid rounded-3"
+                                alt="Enlarged {{ image.title }}">
+                        </div>
 
-                        <!-- Property Details -->
-                        <h6>Price: KES {{ property.price }}</h6>
-                        <p>{{ property.description }}</p>
+                        <!-- Property Details and Why Choose Section -->
+                        <div style="max-width: 45%; overflow-y: auto;">
+                            <h6 class="text-muted">Price: <span class="text-dark">KES {{ image.price }}</span></h6>
+                            <p class="mt-3">{{ image.description }}</p>
 
-                        <!-- DELETE and PAY Buttons -->
-                        <div class="mt-4">
-                            <a href="/imagedelete/{{ property.id }}" class="btn btn-outline-danger">DELETE</a>
-                            <a href="{% url 'pay' %}" class="btn btn-outline-success">PAY</a>
+                            <div class="mt-4">
+                                <h4 class="text-center" style="color: #28a745;">Why Choose This Property?</h4>
+                                <ul class="list-unstyled mt-3" style="font-size: 1.1rem;">
+                                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Prime location</li>
+                                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Affordable pricing</li>
+                                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Secure and comfortable</li>
+                                    <li><i class="fas fa-check-circle" style="color: #28a745;"></i> Perfect for students and young professionals</li>
+                                </ul>
+                            </div>
+
+                            <a href="{% url 'pay' %}?price={{ image.price }}" class="btn btn-outline-success w-100 mt-3" style="font-weight: bold; border-radius: 25px;">
+                                Proceed to Pay
+                            </a>
                         </div>
                     </div>
                 </div>

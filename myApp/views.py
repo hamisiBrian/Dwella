@@ -38,7 +38,8 @@ def contact(request):
 
 
 def properties(request):
-    return render(request, 'properties.html')
+        images = ImageModel.objects.all()
+        return render(request, 'properties.html', {'images': images})
 
 def register(request):
     if request.method=='POST':
@@ -108,8 +109,8 @@ def stk(request):
             "PartyB": LipanaMpesaPpassword.Business_short_code,
             "PhoneNumber": phone,
             "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
-            "AccountReference": "eMobilis",
-            "TransactionDesc": "Web Development Charges"
+            "AccountReference": "Dwella Properties",
+            "TransactionDesc": "Property Payments"
         }
         response = requests.post(api_url, json=request, headers=headers)
         return HttpResponse("Success")

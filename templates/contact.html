@@ -2,46 +2,52 @@
 {% load static %}
 
 {% block body %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #f9f9f9;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 800px; border-top: 5px solid #28a745; border-radius: 15px;">
+        <h2 class="text-center mb-4" style="color: #28a745;">Contact Us</h2>
+        <p class="text-center text-muted mb-4">We'd love to hear from you! Please fill out the form below.</p>
 
-<div class="container" style="margin-top: 100px; margin-bottom: 50px;">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card shadow-lg" style="border: 2px solid #28a745;">
-                <div class="card-header text-white text-center" style="background-color: #28a745;">
-                    <h2>Contact Us</h2>
+        <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <!-- Left side form fields (Name, Email) -->
+                <div class="col-md-6">
+                    <!-- Name Field -->
+                    <div class="form-group mb-3">
+                        <label for="name" style="color: #28a745;">Your Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required="required">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group mb-3">
+                        <label for="email" style="color: #28a745;">Your Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required="required">
+                    </div>
                 </div>
-                <div class="card-body" style="padding: 30px;">
-                    <form action="" method="POST">
-                        {% csrf_token %}
 
-                        <div class="mb-4">
-                            <label for="name" class="form-label"><strong>Name</strong></label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter your name" required>
-                        </div>
+                <!-- Right side form fields (Phone, Message, Submit) -->
+                <div class="col-md-6">
+                    <!-- Phone Field -->
+                    <div class="form-group mb-3">
+                        <label for="phone" style="color: #28a745;">Your Phone Number</label>
+                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="e.g. 0767892012" required="required">
+                    </div>
 
-                        <div class="mb-4">
-                            <label for="email" class="form-label"><strong>Email Address</strong></label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email" required>
-                        </div>
+                    <!-- Message Field -->
+                    <div class="form-group mb-3">
+                        <label for="message" style="color: #28a745;">Your Message</label>
+                        <textarea name="message" id="message" class="form-control" rows="4" placeholder="Write your message here..." required="required"></textarea>
+                    </div>
 
-                        <div class="mb-4">
-                            <label for="phone" class="form-label"><strong>Phone Number</strong></label>
-                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="e.g. 0767892012" required>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="message" class="form-label"><strong>Message</strong></label>
-                            <textarea name="message" id="message" class="form-control" rows="5" placeholder="Type your message here..." required></textarea>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-lg text-white" style="background-color: #28a745;">Submit</button>
-                        </div>
-                    </form>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success w-100 mb-3" style="font-weight: bold; padding: 10px 20px;">
+                        Submit
+                    </button>
                 </div>
             </div>
-        </div>
+        </form>
+
+        <p class="text-center mt-3 text-muted" style="font-size: 14px;">We will get back to you as soon as possible!</p>
     </div>
 </div>
-
 {% endblock %}

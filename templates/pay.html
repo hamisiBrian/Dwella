@@ -29,12 +29,14 @@
           <span class="input-group-text">
             <i class="fas fa-dollar-sign"></i>
           </span>
+          <!-- Automatically set the amount from the URL -->
           <input
             type="text"
             id="amount"
             name="amount"
             class="form-control"
-            placeholder="Enter payment amount"
+            value="{{ request.GET.price }}"
+            readonly
             required>
         </div>
       </div>
@@ -46,5 +48,4 @@
     </form>
   </div>
 </div>
-
 {% endblock %}
